@@ -295,6 +295,10 @@ input:focus, textarea:focus, select:focus { border-color: var(--color-primary); 
 .footer-grid ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 0.82rem; color: #94a3b8; }
 .footer-disclosure { font-size: 0.8rem; color: #94a3b8; max-width: 60ch; margin-bottom: 20px; }
+.social-row { display: flex; gap: 10px; }
+.social-row a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 999px; background: rgba(255,255,255,0.08); color: #e2e8f0; transition: background 160ms ease, color 160ms ease; }
+.social-row a:hover { background: var(--color-primary); color: #fff; }
+.social-row svg { width: 18px; height: 18px; }
 
 /* ---------- Pagination ---------- */
 .pagination { display: flex; justify-content: center; gap: 8px; margin-top: 36px; }
