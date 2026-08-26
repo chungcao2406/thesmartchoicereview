@@ -31,6 +31,7 @@
   <div class="review-single">
     <h1 class="review-title"><%= review.title %></h1>
     <div class="review-title-meta">
+      <span class="rating-label">Our Rating:</span>
       <%- include('partials/stars', { rating: review.rating }) %>
       <% if (review.affiliate_network) { %><span class="review-network">via <%= review.affiliate_network %></span><% } %>
     </div>
