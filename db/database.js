@@ -111,7 +111,7 @@ async function init() {
       price: '$129.00',
       original_price: '$199.00',
       affiliate_url:
-        'https://heypocket.com/11321948&utm_source=affiliate&utm_medium=affiliate&utm_campaign=pocket-affiliate-program&utm_term=Chung-Cao',
+        'https://heypocket.com/11321948?utm_source=affiliate&utm_medium=affiliate&utm_campaign=pocket-affiliate-program&utm_term=Chung-Cao',
       affiliate_network: 'Pocket Affiliate Program',
       coupon_code: null,
       featured: 1,
@@ -206,7 +206,7 @@ async function init() {
       description: 'Pocket, the AI wearable recorder from HeyPocket, is currently listed at $129 (down from $199) directly on the official site - no code needed, the discount is already applied at checkout.',
       category_id: techId,
       discount_label: '35% OFF',
-      affiliate_url: 'https://heypocket.com/11321948&utm_source=affiliate&utm_medium=affiliate&utm_campaign=pocket-affiliate-program&utm_term=Chung-Cao',
+      affiliate_url: 'https://heypocket.com/11321948?utm_source=affiliate&utm_medium=affiliate&utm_campaign=pocket-affiliate-program&utm_term=Chung-Cao',
       expires_at: null,
       featured: 1,
       status: 'published',
