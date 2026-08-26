@@ -300,4 +300,14 @@ router.post('/settings/password', (req, res) => {
   res.render('admin/settings', { title: 'Settings', error: null, success: 'Password updated successfully.' });
 });
 
+// ---------- One-off content tools ----------
+// Runs inside this same live process (unlike a separate script), so it's
+// safe to trigger while the app is running: no risk of a second process's
+// stale in-memory copy overwriting these inserts.
+router.get('/tools/seed-more-content', (req, res) => {
+  const { seedMoreContent } = require('../lib/extraContent');
+  const result = seedMoreContent(db);
+  res.type('text/plain').send(result.log.join('\n'));
+});
+
 module.exports = router;
