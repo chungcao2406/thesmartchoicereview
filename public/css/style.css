@@ -157,7 +157,7 @@ button { font-family: inherit; cursor: pointer; }
 .main-nav a { padding: 10px 14px; border-radius: 999px; color: var(--color-foreground); font-weight: 600; font-size: 0.95rem; }
 .main-nav a:hover, .main-nav a[aria-current="page"] { background: var(--color-muted); color: var(--color-primary); }
 .header-actions { display: flex; align-items: center; gap: 10px; }
-.search-form { display: flex; align-items: center; }
+.search-form { display: flex; align-items: center; margin-left: 8px; }
 .search-form input { border: 1px solid var(--color-border); border-radius: 999px 0 0 999px; padding: 10px 16px; font-size: 0.9rem; min-width: 180px; background: var(--color-background); color: var(--color-foreground); }
 .search-form button { border: 1px solid var(--color-border); border-left: none; border-radius: 0 999px 999px 0; background: var(--color-muted); padding: 10px 14px; display: flex; align-items: center; }
 .nav-toggle { display: none; background: none; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 8px; }
@@ -170,7 +170,8 @@ button { font-family: inherit; cursor: pointer; }
   .main-nav.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
   .main-nav a { padding: 14px 16px; }
   .nav-toggle { display: flex; }
-  .search-form input { min-width: 120px; }
+  .search-form { width: 100%; margin: 8px 0 0; }
+  .search-form input { min-width: 0; flex: 1; }
 }
 
 /* ---------- Hero ---------- */
