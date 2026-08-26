@@ -178,7 +178,7 @@ async function init() {
         "10kg max load on the legs means it's not built for long telephoto lenses or video rigs",
         "Only one detailed public customer review so far - it's a newer release without a long track record",
       ]),
-      price: '11.367.118₫',
+      price: '$429.00',
       original_price: null,
       affiliate_url: 'https://leofotousa.com?sca_ref=10975682.xJWHdvvYzG',
       affiliate_network: 'Leofoto USA Affiliate Program',
