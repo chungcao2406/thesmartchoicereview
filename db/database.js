@@ -190,7 +190,8 @@ async function init() {
 
   const couponCount = db.prepare('SELECT COUNT(*) AS c FROM coupons').get().c;
   if (couponCount === 0) {
-    const homeId = db.prepare('SELECT id FROM categories WHERE slug = ?').get(['home-kitchen']).id;
+    const techId = db.prepare('SELECT id FROM categories WHERE slug = ?').get(['tech-gadgets']).id;
+    const travelId = db.prepare('SELECT id FROM categories WHERE slug = ?').get(['travel-outdoors']).id;
     const insertCoupon = db.prepare(`
       INSERT INTO coupons
         (title, slug, store_name, code, description, category_id, discount_label, affiliate_url, expires_at, featured, status)
@@ -198,14 +199,28 @@ async function init() {
     `);
 
     insertCoupon.run({
-      title: 'Sample Coupon: 20% off storewide (Edit or delete this)',
-      slug: 'sample-coupon-20-off',
-      store_name: 'Sample Store',
-      code: 'SAVE20',
-      description: 'Placeholder coupon so you can see how the coupons page looks. Replace it in Admin -> Coupons.',
-      category_id: homeId,
-      discount_label: '20% OFF',
-      affiliate_url: 'https://example.com/?ref=your-affiliate-id',
+      title: 'Pocket AI Recorder - $70 Off Launch Price',
+      slug: 'heypocket-70-off-launch-price',
+      store_name: 'HeyPocket',
+      code: null,
+      description: 'Pocket, the AI wearable recorder from HeyPocket, is currently listed at $129 (down from $199) directly on the official site - no code needed, the discount is already applied at checkout.',
+      category_id: techId,
+      discount_label: '35% OFF',
+      affiliate_url: 'https://heypocket.com/11321948&utm_source=affiliate&utm_medium=affiliate&utm_campaign=pocket-affiliate-program&utm_term=Chung-Cao',
+      expires_at: null,
+      featured: 1,
+      status: 'published',
+    });
+
+    insertCoupon.run({
+      title: 'Mangosteen M1P Scooter - €200 Off',
+      slug: 'mangosteen-m1p-200-off',
+      store_name: 'Mangosteen Scooter',
+      code: null,
+      description: 'The upgraded Mangosteen M1P street-legal electric scooter is currently listed at €1,799 (down from €1,999) directly on the official site - no code needed, price is already reduced at checkout.',
+      category_id: travelId,
+      discount_label: '€200 OFF',
+      affiliate_url: 'https://www.mangosteenscooter.com?sca_ref=11406255.N9q4ouPVHfzI',
       expires_at: null,
       featured: 1,
       status: 'published',
