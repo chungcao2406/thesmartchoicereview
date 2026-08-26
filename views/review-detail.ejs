@@ -34,6 +34,14 @@
         <img src="<%= review.image_url || '/images/placeholder-product.svg' %>" alt="<%= review.title %>" width="600" height="450" />
       </div>
 
+      <% if (review.gallery_images && review.gallery_images.length) { %>
+        <div class="gallery-grid">
+          <% review.gallery_images.forEach(function(src, i){ %>
+            <img src="<%= src %>" alt="<%= review.title %> &mdash; photo <%= i + 2 %>" loading="lazy" width="200" height="200" />
+          <% }) %>
+        </div>
+      <% } %>
+
       <div class="verdict-box">
         <h2 style="margin-bottom:6px;">Our Verdict</h2>
         <%- include('partials/stars', { rating: review.rating }) %>

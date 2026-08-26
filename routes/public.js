@@ -15,7 +15,12 @@ function parseJsonArray(str) {
 
 function withParsedFields(review) {
   if (!review) return review;
-  return { ...review, pros: parseJsonArray(review.pros), cons: parseJsonArray(review.cons) };
+  return {
+    ...review,
+    pros: parseJsonArray(review.pros),
+    cons: parseJsonArray(review.cons),
+    gallery_images: parseJsonArray(review.gallery_images),
+  };
 }
 
 // Home page

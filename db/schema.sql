@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS reviews (
   summary TEXT,
   content TEXT,
   image_url TEXT,
+  gallery_images TEXT,
   rating REAL NOT NULL DEFAULT 4.5,
   pros TEXT,
   cons TEXT,

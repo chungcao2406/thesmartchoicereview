@@ -84,8 +84,8 @@ router.post('/reviews', (req, res) => {
   const slug = uniqueSlug('reviews', b.title);
   db.prepare(
     `INSERT INTO reviews
-      (title, slug, category_id, summary, content, image_url, rating, pros, cons, price, original_price, affiliate_url, affiliate_network, coupon_code, featured, status, updated_at)
-     VALUES (@title, @slug, @category_id, @summary, @content, @image_url, @rating, @pros, @cons, @price, @original_price, @affiliate_url, @affiliate_network, @coupon_code, @featured, @status, datetime('now'))`
+      (title, slug, category_id, summary, content, image_url, gallery_images, rating, pros, cons, price, original_price, affiliate_url, affiliate_network, coupon_code, featured, status, updated_at)
+     VALUES (@title, @slug, @category_id, @summary, @content, @image_url, @gallery_images, @rating, @pros, @cons, @price, @original_price, @affiliate_url, @affiliate_network, @coupon_code, @featured, @status, datetime('now'))`
   ).run({
     title: b.title,
     slug,
@@ -93,6 +93,7 @@ router.post('/reviews', (req, res) => {
     summary: b.summary || null,
     content: b.content || null,
     image_url: b.image_url || null,
+    gallery_images: JSON.stringify(linesToArray(b.gallery_images)),
     rating: parseFloat(b.rating) || 4.5,
     pros: JSON.stringify(linesToArray(b.pros)),
     cons: JSON.stringify(linesToArray(b.cons)),
@@ -112,6 +113,7 @@ router.get('/reviews/:id/edit', (req, res) => {
   if (!review) return res.status(404).send('Review not found');
   review.pros = (JSON.parse(review.pros || '[]')).join('\n');
   review.cons = (JSON.parse(review.cons || '[]')).join('\n');
+  review.gallery_images = (JSON.parse(review.gallery_images || '[]')).join('\n');
   const categories = db.prepare('SELECT * FROM categories ORDER BY name ASC').all();
   res.render('admin/review-form', { title: 'Edit Review', review, categories });
 });
@@ -125,7 +127,7 @@ router.post('/reviews/:id', (req, res) => {
   db.prepare(
     `UPDATE reviews SET
       title=@title, slug=@slug, category_id=@category_id, summary=@summary, content=@content,
-      image_url=@image_url, rating=@rating, pros=@pros, cons=@cons, price=@price,
+      image_url=@image_url, gallery_images=@gallery_images, rating=@rating, pros=@pros, cons=@cons, price=@price,
       original_price=@original_price, affiliate_url=@affiliate_url, affiliate_network=@affiliate_network,
       coupon_code=@coupon_code, featured=@featured, status=@status, updated_at=datetime('now')
      WHERE id=@id`
@@ -137,6 +139,7 @@ router.post('/reviews/:id', (req, res) => {
     summary: b.summary || null,
     content: b.content || null,
     image_url: b.image_url || null,
+    gallery_images: JSON.stringify(linesToArray(b.gallery_images)),
     rating: parseFloat(b.rating) || 4.5,
     pros: JSON.stringify(linesToArray(b.pros)),
     cons: JSON.stringify(linesToArray(b.cons)),
@@ -301,12 +304,15 @@ router.post('/settings/password', (req, res) => {
 });
 
 // ---------- One-off content tools ----------
-// Runs inside this same live process (unlike a separate script), so it's
-// safe to trigger while the app is running: no risk of a second process's
-// stale in-memory copy overwriting these inserts.
-router.get('/tools/seed-more-content', (req, res) => {
-  const { seedMoreContent } = require('../lib/extraContent');
-  const result = seedMoreContent(db);
+// Inserts any starter review/coupon that's missing (by slug) and updates
+// the editorial fields on any that already exist, so it's the tool to use
+// whenever the built-in starter content is revised in code. Runs inside
+// this same live process (unlike a separate script), so it's safe to
+// trigger while the app is running: no risk of a second process's stale
+// in-memory copy overwriting these writes.
+router.get('/tools/sync-content', (req, res) => {
+  const { syncContent } = require('../lib/extraContent');
+  const result = syncContent(db);
   res.type('text/plain').send(result.log.join('\n'));
 });
 
