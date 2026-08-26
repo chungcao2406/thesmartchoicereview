@@ -1,0 +1,111 @@
+<%- include('partials/header') %>
+
+<script type="application/ld+json">
+<%- JSON.stringify({
+  "@context": "https://schema.org/",
+  "@type": "Review",
+  "itemReviewed": {
+    "@type": "Product",
+    "name": review.title,
+    "image": review.image_url
+  },
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": review.rating,
+    "bestRating": "5"
+  },
+  "author": { "@type": "Organization", "name": siteName },
+  "publisher": { "@type": "Organization", "name": siteName }
+}) %>
+</script>
+
+<div class="container">
+  <div class="section" style="padding-bottom:0;">
+    <p class="breadcrumbs">
+      <a href="/">Home</a> /
+      <a href="/reviews">Reviews</a>
+      <% if (review.category_slug) { %> / <a href="/category/<%= review.category_slug %>"><%= review.category_name %></a><% } %>
+    </p>
+  </div>
+
+  <div class="review-hero">
+    <div>
+      <div class="review-media">
+        <img src="<%= review.image_url || '/images/placeholder-product.svg' %>" alt="<%= review.title %>" width="600" height="450" />
+      </div>
+
+      <div class="verdict-box">
+        <h2 style="margin-bottom:6px;">Our Verdict</h2>
+        <%- include('partials/stars', { rating: review.rating }) %>
+        <p style="margin-top:12px; color:var(--color-muted-foreground);"><%= review.summary %></p>
+      </div>
+
+      <div class="pros-cons">
+        <div class="pc-block pros">
+          <h4>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            What we liked
+          </h4>
+          <ul>
+            <% review.pros.forEach(function(p){ %><li>+ <%= p %></li><% }) %>
+          </ul>
+        </div>
+        <div class="pc-block cons">
+          <h4>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Where it falls short
+          </h4>
+          <ul>
+            <% review.cons.forEach(function(c){ %><li>&minus; <%= c %></li><% }) %>
+          </ul>
+        </div>
+      </div>
+
+      <div class="article-body prose">
+        <%- review.content %>
+      </div>
+    </div>
+
+    <aside>
+      <div class="cta-panel">
+        <div>
+          <h3 style="color:#fff; margin-bottom:4px;"><%= review.title %></h3>
+          <% if (review.affiliate_network) { %><p style="color:rgba(255,255,255,0.75); font-size:0.85rem; margin:0;">via <%= review.affiliate_network %></p><% } %>
+        </div>
+        <% if (review.price) { %>
+          <div class="price-row">
+            <span class="price-now"><%= review.price %></span>
+            <% if (review.original_price) { %><span class="price-was"><%= review.original_price %></span><% } %>
+          </div>
+        <% } %>
+        <a href="<%= review.affiliate_url %>" class="btn btn-accent" target="_blank" rel="nofollow sponsored noopener">
+          Check Current Price
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+        <% if (review.coupon_code) { %>
+          <div>
+            <p style="color:rgba(255,255,255,0.85); font-size:0.85rem; margin-bottom:6px;">Use coupon code:</p>
+            <div class="coupon-code-row">
+              <code class="coupon-code" id="review-code"><%= review.coupon_code %></code>
+              <button type="button" class="btn btn-outline btn-sm" style="border-color:rgba(255,255,255,0.5); color:#fff;" data-copy="<%= review.coupon_code %>">Copy</button>
+            </div>
+          </div>
+        <% } %>
+        <p style="font-size:0.78rem; color:rgba(255,255,255,0.65); margin:0;">Price and availability are accurate as of the date of publishing and may change.</p>
+      </div>
+    </aside>
+  </div>
+
+  <% if (related.length) { %>
+  <section class="section" style="padding-top:0;">
+    <div class="section-head"><h2>You might also like</h2></div>
+    <div class="grid grid-3">
+      <% related.forEach(function(r){ %>
+        <%- include('partials/review-card', { review: r }) %>
+      <% }) %>
+    </div>
+  </section>
+  <% } %>
+</div>
+
+<%- include('partials/footer') %>

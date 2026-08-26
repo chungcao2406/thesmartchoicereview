@@ -1,0 +1,45 @@
+<%- include('partials/header') %>
+
+<div class="container page-header">
+  <h1><%= activeCategory ? activeCategory.name + ' Reviews' : 'All Reviews' %></h1>
+  <p><%= activeCategory ? activeCategory.description : 'Independent, hands-on reviews across every category we cover.' %></p>
+</div>
+
+<div class="container" style="margin-bottom:28px;">
+  <div class="chip-row">
+    <a href="/reviews" class="chip <%= !activeCategory ? 'active' : '' %>">All</a>
+    <% categories.forEach(function(c){ %>
+      <a href="/reviews?category=<%= c.slug %>" class="chip <%= activeCategory && activeCategory.id === c.id ? 'active' : '' %>"><%= c.name %></a>
+    <% }) %>
+  </div>
+</div>
+
+<div class="container section" style="padding-top:0;">
+  <% if (reviews.length === 0) { %>
+    <div class="empty-state">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <p>No reviews here yet. Check back soon, or browse another category.</p>
+    </div>
+  <% } else { %>
+    <div class="grid grid-3">
+      <% reviews.forEach(function(review){ %>
+        <%- include('partials/review-card', { review: review }) %>
+      <% }) %>
+    </div>
+
+    <% if (totalPages > 1) { %>
+      <nav class="pagination" aria-label="Pagination">
+        <% for (var p = 1; p <= totalPages; p++) { %>
+          <% var qs = activeCategory ? ('?category=' + activeCategory.slug + '&page=' + p) : ('?page=' + p); %>
+          <% if (p === currentPage) { %>
+            <span class="current" aria-current="page"><%= p %></span>
+          <% } else { %>
+            <a href="/reviews<%= qs %>"><%= p %></a>
+          <% } %>
+        <% } %>
+      </nav>
+    <% } %>
+  <% } %>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,38 @@
+<%- include('../partials/admin-header') %>
+
+<div class="admin-topbar">
+  <h1 style="margin:0;">Reviews</h1>
+  <a href="/admin/reviews/new" class="btn btn-primary">+ New Review</a>
+</div>
+
+<div class="admin-card overflow-x">
+  <% if (reviews.length === 0) { %>
+    <p style="color:var(--color-muted-foreground);">No reviews yet. <a href="/admin/reviews/new">Create your first one</a>.</p>
+  <% } else { %>
+    <table class="data-table">
+      <thead>
+        <tr><th>Title</th><th>Category</th><th>Rating</th><th>Status</th><th>Views</th><th></th></tr>
+      </thead>
+      <tbody>
+        <% reviews.forEach(function(r){ %>
+          <tr>
+            <td><a href="/admin/reviews/<%= r.id %>/edit"><%= r.title %></a></td>
+            <td><%= r.category_name || '&mdash;' %></td>
+            <td><%= r.rating %></td>
+            <td><span class="status-pill status-<%= r.status %>"><%= r.status %></span></td>
+            <td><%= r.views %></td>
+            <td class="table-actions">
+              <a href="/reviews/<%= r.slug %>" target="_blank" class="btn btn-outline btn-sm">View</a>
+              <a href="/admin/reviews/<%= r.id %>/edit" class="btn btn-outline btn-sm">Edit</a>
+              <form method="POST" action="/admin/reviews/<%= r.id %>/delete" data-confirm="Delete this review? This cannot be undone.">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<%- include('../partials/admin-footer') %>

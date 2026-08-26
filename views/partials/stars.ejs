@@ -1,0 +1,12 @@
+<%
+  var starRating = typeof rating !== 'undefined' ? Number(rating) : 0;
+  var pct = Math.max(0, Math.min(100, (starRating / 5) * 100));
+  var starIcon = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.5 5.9 20.6l1.3-6.6L2.3 9.4l6.6-.8L12 2.5z"/></svg>';
+%>
+<span class="rating" aria-label="Rated <%= starRating.toFixed(1) %> out of 5">
+  <span style="position:relative; display:inline-block; width:88px; height:16px;">
+    <span class="stars" style="opacity:0.28; position:absolute; left:0; top:0; width:100%;"><%- starIcon.repeat(5) %></span>
+    <span class="stars" style="position:absolute; left:0; top:0; width:<%= pct %>%; overflow:hidden; white-space:nowrap;"><%- starIcon.repeat(5) %></span>
+  </span>
+  <%= starRating.toFixed(1) %>
+</span>

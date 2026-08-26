@@ -1,0 +1,38 @@
+<%- include('partials/header') %>
+
+<div class="container page-header">
+  <h1><%= category.name %></h1>
+  <p><%= category.description %></p>
+</div>
+
+<div class="container section" style="padding-top:0;">
+  <div class="section-head">
+    <h2>Reviews</h2>
+    <a href="/reviews?category=<%= category.slug %>" class="btn btn-outline btn-sm">View all</a>
+  </div>
+  <% if (reviews.length === 0) { %>
+    <div class="empty-state"><p>No reviews in this category yet.</p></div>
+  <% } else { %>
+    <div class="grid grid-3">
+      <% reviews.forEach(function(review){ %>
+        <%- include('partials/review-card', { review: review }) %>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+<% if (coupons.length) { %>
+<div class="container section" style="padding-top:0;">
+  <div class="section-head">
+    <h2>Coupons &amp; Deals</h2>
+    <a href="/coupons?category=<%= category.slug %>" class="btn btn-outline btn-sm">View all</a>
+  </div>
+  <div class="grid grid-2">
+    <% coupons.forEach(function(coupon){ %>
+      <%- include('partials/coupon-card', { coupon: coupon }) %>
+    <% }) %>
+  </div>
+</div>
+<% } %>
+
+<%- include('partials/footer') %>

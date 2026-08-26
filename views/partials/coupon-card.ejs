@@ -1,0 +1,19 @@
+<div class="coupon-card">
+  <div class="coupon-side">
+    <span><%= coupon.discount_label %></span>
+  </div>
+  <div class="coupon-main">
+    <span class="coupon-store"><%= coupon.store_name %><% if (coupon.category_name) { %> &middot; <span style="color:var(--color-muted-foreground); font-weight:400;"><%= coupon.category_name %></span><% } %></span>
+    <% if (coupon.description) { %><p class="coupon-desc"><%= coupon.description %></p><% } %>
+    <div class="coupon-code-row">
+      <% if (coupon.code) { %>
+        <code class="coupon-code" id="code-<%= coupon.id %>"><%= coupon.code %></code>
+        <button type="button" class="btn btn-outline btn-sm" data-copy="<%= coupon.code %>">Copy Code</button>
+      <% } %>
+      <a href="<%= coupon.affiliate_url %>" class="btn btn-coupon btn-sm" target="_blank" rel="nofollow sponsored noopener" data-track-coupon="<%= coupon.id %>">
+        Get Deal
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+    </div>
+  </div>
+</div>

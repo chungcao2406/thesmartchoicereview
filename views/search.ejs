@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+
+<div class="container page-header">
+  <h1><%= q ? 'Search results for "' + q + '"' : 'Search' %></h1>
+  <% if (q) { %><p><%= reviews.length %> result<%= reviews.length === 1 ? '' : 's' %> found.</p><% } %>
+</div>
+
+<div class="container section" style="padding-top:0;">
+  <% if (!q) { %>
+    <div class="empty-state"><p>Use the search bar above to find a review.</p></div>
+  <% } else if (reviews.length === 0) { %>
+    <div class="empty-state">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <p>No reviews matched your search. Try a different keyword.</p>
+    </div>
+  <% } else { %>
+    <div class="grid grid-3">
+      <% reviews.forEach(function(review){ %>
+        <%- include('partials/review-card', { review: review }) %>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+<%- include('partials/footer') %>

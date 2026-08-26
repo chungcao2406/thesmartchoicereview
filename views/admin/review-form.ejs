@@ -1,0 +1,107 @@
+<%- include('../partials/admin-header') %>
+
+<div class="admin-topbar">
+  <h1 style="margin:0;"><%= review ? 'Edit Review' : 'New Review' %></h1>
+  <a href="/admin/reviews" class="btn btn-outline btn-sm">&larr; Back to Reviews</a>
+</div>
+
+<div class="admin-card">
+  <form method="POST" action="<%= review ? '/admin/reviews/' + review.id : '/admin/reviews' %>">
+    <div class="form-group">
+      <label for="title">Product Title</label>
+      <input type="text" id="title" name="title" required value="<%= review ? review.title : '' %>" />
+    </div>
+
+    <div class="form-row-2">
+      <div class="form-group">
+        <label for="category_id">Category</label>
+        <select id="category_id" name="category_id">
+          <option value="">&mdash; None &mdash;</option>
+          <% categories.forEach(function(c){ %>
+            <option value="<%= c.id %>" <%= review && review.category_id === c.id ? 'selected' : '' %>><%= c.name %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="rating">Rating (0&ndash;5)</label>
+        <input type="number" id="rating" name="rating" min="0" max="5" step="0.1" value="<%= review ? review.rating : '4.5' %>" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="summary">Short Summary</label>
+      <textarea id="summary" name="summary" rows="2"><%= review ? review.summary : '' %></textarea>
+      <p class="hint">Shown on review cards and as the top-of-page verdict summary.</p>
+    </div>
+
+    <div class="form-group">
+      <label for="content">Full Review (HTML allowed: &lt;p&gt;, &lt;strong&gt;, &lt;ul&gt;&lt;li&gt;, etc.)</label>
+      <textarea id="content" name="content" rows="10"><%= review ? review.content : '' %></textarea>
+    </div>
+
+    <div class="form-row-2">
+      <div class="form-group">
+        <label for="pros">Pros (one per line)</label>
+        <textarea id="pros" name="pros" rows="4"><%= review ? review.pros : '' %></textarea>
+      </div>
+      <div class="form-group">
+        <label for="cons">Cons (one per line)</label>
+        <textarea id="cons" name="cons" rows="4"><%= review ? review.cons : '' %></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="image_url">Image URL</label>
+      <input type="url" id="image_url" name="image_url" placeholder="https://..." value="<%= review ? (review.image_url || '') : '' %>" />
+      <p class="hint">Paste a link to a product image. Leave blank to use a placeholder image.</p>
+    </div>
+
+    <div class="form-row-2">
+      <div class="form-group">
+        <label for="price">Current Price</label>
+        <input type="text" id="price" name="price" placeholder="$79.99" value="<%= review ? (review.price || '') : '' %>" />
+      </div>
+      <div class="form-group">
+        <label for="original_price">Original Price (optional)</label>
+        <input type="text" id="original_price" name="original_price" placeholder="$99.99" value="<%= review ? (review.original_price || '') : '' %>" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="affiliate_url">Affiliate Link</label>
+      <input type="url" id="affiliate_url" name="affiliate_url" required placeholder="https://retailer.com/product?ref=..." value="<%= review ? review.affiliate_url : '' %>" />
+    </div>
+
+    <div class="form-row-2">
+      <div class="form-group">
+        <label for="affiliate_network">Affiliate Network (optional)</label>
+        <input type="text" id="affiliate_network" name="affiliate_network" placeholder="e.g. Amazon Associates" value="<%= review ? (review.affiliate_network || '') : '' %>" />
+      </div>
+      <div class="form-group">
+        <label for="coupon_code">Coupon Code (optional)</label>
+        <input type="text" id="coupon_code" name="coupon_code" value="<%= review ? (review.coupon_code || '') : '' %>" />
+      </div>
+    </div>
+
+    <div class="form-row-2">
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status">
+          <option value="published" <%= review && review.status === 'published' ? 'selected' : '' %>>Published</option>
+          <option value="draft" <%= review && review.status === 'draft' ? 'selected' : '' %>>Draft</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>&nbsp;</label>
+        <div class="checkbox-row">
+          <input type="checkbox" id="featured" name="featured" <%= review && review.featured ? 'checked' : '' %> />
+          <label for="featured" style="margin:0;">Featured (Editor's Pick)</label>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary"><%= review ? 'Save Changes' : 'Create Review' %></button>
+  </form>
+</div>
+
+<%- include('../partials/admin-footer') %>

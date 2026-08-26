@@ -1,0 +1,32 @@
+<%- include('partials/header') %>
+
+<div class="container page-header">
+  <h1><%= activeCategory ? activeCategory.name + ' Coupons & Deals' : 'All Coupons & Deals' %></h1>
+  <p>Verified codes and deals, checked regularly so you don't land on an expired promo.</p>
+</div>
+
+<div class="container" style="margin-bottom:28px;">
+  <div class="chip-row">
+    <a href="/coupons" class="chip <%= !activeCategory ? 'active' : '' %>">All</a>
+    <% categories.forEach(function(c){ %>
+      <a href="/coupons?category=<%= c.slug %>" class="chip <%= activeCategory && activeCategory.id === c.id ? 'active' : '' %>"><%= c.name %></a>
+    <% }) %>
+  </div>
+</div>
+
+<div class="container section" style="padding-top:0;">
+  <% if (coupons.length === 0) { %>
+    <div class="empty-state">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/></svg>
+      <p>No active coupons in this category right now. Check back soon.</p>
+    </div>
+  <% } else { %>
+    <div class="grid grid-2">
+      <% coupons.forEach(function(coupon){ %>
+        <%- include('partials/coupon-card', { coupon: coupon }) %>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+<%- include('partials/footer') %>

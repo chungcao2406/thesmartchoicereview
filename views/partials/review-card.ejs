@@ -1,0 +1,20 @@
+<article class="card">
+  <div class="card-media">
+    <% if (review.featured) { %><span class="badge">Editor's Pick</span><% } %>
+    <img src="<%= review.image_url || '/images/placeholder-product.svg' %>" alt="<%= review.title %>" loading="lazy" width="400" height="300" />
+  </div>
+  <div class="card-body">
+    <% if (review.category_name) { %><span class="card-eyebrow"><%= review.category_name %></span><% } %>
+    <h3 class="card-title"><a href="/reviews/<%= review.slug %>"><%= review.title %></a></h3>
+    <p class="card-summary"><%= review.summary %></p>
+    <div class="card-footer">
+      <%- include('stars', { rating: review.rating }) %>
+      <% if (review.price) { %>
+        <span class="price-row">
+          <span class="price-now"><%= review.price %></span>
+          <% if (review.original_price) { %><span class="price-was"><%= review.original_price %></span><% } %>
+        </span>
+      <% } %>
+    </div>
+  </div>
+</article>

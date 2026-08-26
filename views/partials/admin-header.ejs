@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= title %> | Admin | <%= siteName %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="admin-shell">
+    <aside class="admin-sidebar">
+      <div class="brand">
+        <span class="brand-mark">S</span>
+        <span>Admin</span>
+      </div>
+      <nav>
+        <a href="/admin" class="<%= currentPath === '/admin' ? 'active' : '' %>">Dashboard</a>
+        <a href="/admin/reviews" class="<%= currentPath.startsWith('/admin/reviews') ? 'active' : '' %>">Reviews</a>
+        <a href="/admin/coupons" class="<%= currentPath.startsWith('/admin/coupons') ? 'active' : '' %>">Coupons</a>
+        <a href="/admin/categories" class="<%= currentPath.startsWith('/admin/categories') ? 'active' : '' %>">Categories</a>
+        <a href="/admin/messages" class="<%= currentPath.startsWith('/admin/messages') ? 'active' : '' %>">Messages</a>
+        <a href="/admin/settings" class="<%= currentPath.startsWith('/admin/settings') ? 'active' : '' %>">Settings</a>
+        <hr style="border-color: rgba(255,255,255,0.12); width:100%; margin:12px 0;" />
+        <a href="/" target="_blank" rel="noopener">View Site &#8599;</a>
+        <form method="POST" action="/admin/logout">
+          <button type="submit" style="background:none; border:none; color:#cbd5e1; padding:10px 12px; font-weight:600; font-size:0.9rem; width:100%; text-align:left; border-radius:8px;">Log Out</button>
+        </form>
+      </nav>
+    </aside>
+    <main class="admin-main">

@@ -1,0 +1,76 @@
+<%- include('../partials/admin-header') %>
+
+<div class="admin-topbar">
+  <h1 style="margin:0;"><%= coupon ? 'Edit Coupon' : 'New Coupon' %></h1>
+  <a href="/admin/coupons" class="btn btn-outline btn-sm">&larr; Back to Coupons</a>
+</div>
+
+<div class="admin-card">
+  <form method="POST" action="<%= coupon ? '/admin/coupons/' + coupon.id : '/admin/coupons' %>">
+    <div class="form-group">
+      <label for="title">Internal Title</label>
+      <input type="text" id="title" name="title" required value="<%= coupon ? coupon.title : '' %>" />
+      <p class="hint">Shown in the admin list; not necessarily visible to visitors.</p>
+    </div>
+
+    <div class="form-row-2">
+      <div class="form-group">
+        <label for="store_name">Store / Brand Name</label>
+        <input type="text" id="store_name" name="store_name" required value="<%= coupon ? coupon.store_name : '' %>" />
+      </div>
+      <div class="form-group">
+        <label for="discount_label">Discount Label</label>
+        <input type="text" id="discount_label" name="discount_label" required placeholder="20% OFF" value="<%= coupon ? coupon.discount_label : '' %>" />
+      </div>
+    </div>
+
+    <div class="form-row-2">
+      <div class="form-group">
+        <label for="code">Coupon Code (leave blank for "no code needed" deals)</label>
+        <input type="text" id="code" name="code" value="<%= coupon ? (coupon.code || '') : '' %>" />
+      </div>
+      <div class="form-group">
+        <label for="category_id">Category</label>
+        <select id="category_id" name="category_id">
+          <option value="">&mdash; None &mdash;</option>
+          <% categories.forEach(function(c){ %>
+            <option value="<%= c.id %>" <%= coupon && coupon.category_id === c.id ? 'selected' : '' %>><%= c.name %></option>
+          <% }) %>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="2"><%= coupon ? (coupon.description || '') : '' %></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="affiliate_url">Affiliate Link</label>
+      <input type="url" id="affiliate_url" name="affiliate_url" required placeholder="https://retailer.com/?ref=..." value="<%= coupon ? coupon.affiliate_url : '' %>" />
+    </div>
+
+    <div class="form-row-2">
+      <div class="form-group">
+        <label for="expires_at">Expires On (optional)</label>
+        <input type="date" id="expires_at" name="expires_at" value="<%= coupon && coupon.expires_at ? coupon.expires_at : '' %>" />
+      </div>
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status">
+          <option value="published" <%= coupon && coupon.status === 'published' ? 'selected' : '' %>>Published</option>
+          <option value="draft" <%= coupon && coupon.status === 'draft' ? 'selected' : '' %>>Draft</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="checkbox-row" style="margin-bottom:20px;">
+      <input type="checkbox" id="featured" name="featured" <%= coupon && coupon.featured ? 'checked' : '' %> />
+      <label for="featured" style="margin:0;">Featured on homepage</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary"><%= coupon ? 'Save Changes' : 'Create Coupon' %></button>
+  </form>
+</div>
+
+<%- include('../partials/admin-footer') %>

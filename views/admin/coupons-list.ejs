@@ -1,0 +1,38 @@
+<%- include('../partials/admin-header') %>
+
+<div class="admin-topbar">
+  <h1 style="margin:0;">Coupons</h1>
+  <a href="/admin/coupons/new" class="btn btn-primary">+ New Coupon</a>
+</div>
+
+<div class="admin-card overflow-x">
+  <% if (coupons.length === 0) { %>
+    <p style="color:var(--color-muted-foreground);">No coupons yet. <a href="/admin/coupons/new">Create your first one</a>.</p>
+  <% } else { %>
+    <table class="data-table">
+      <thead>
+        <tr><th>Title</th><th>Store</th><th>Code</th><th>Category</th><th>Status</th><th>Uses</th><th></th></tr>
+      </thead>
+      <tbody>
+        <% coupons.forEach(function(c){ %>
+          <tr>
+            <td><a href="/admin/coupons/<%= c.id %>/edit"><%= c.title %></a></td>
+            <td><%= c.store_name %></td>
+            <td><%= c.code || '&mdash;' %></td>
+            <td><%= c.category_name || '&mdash;' %></td>
+            <td><span class="status-pill status-<%= c.status %>"><%= c.status %></span></td>
+            <td><%= c.uses %></td>
+            <td class="table-actions">
+              <a href="/admin/coupons/<%= c.id %>/edit" class="btn btn-outline btn-sm">Edit</a>
+              <form method="POST" action="/admin/coupons/<%= c.id %>/delete" data-confirm="Delete this coupon?">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<%- include('../partials/admin-footer') %>

@@ -1,0 +1,49 @@
+<%- include('../partials/admin-header') %>
+
+<div class="admin-topbar">
+  <h1 style="margin:0;">Dashboard</h1>
+</div>
+
+<% if (currentAdmin && currentAdmin.must_change_password) { %>
+  <div class="alert alert-error">
+    You're using the default admin password. Please <a href="/admin/settings">change it now</a> before sharing this site's link.
+  </div>
+<% } %>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="stat-value"><%= stats.reviews %></div><div class="stat-label">Reviews</div></div>
+  <div class="stat-card"><div class="stat-value"><%= stats.coupons %></div><div class="stat-label">Coupons</div></div>
+  <div class="stat-card"><div class="stat-value"><%= stats.categories %></div><div class="stat-label">Categories</div></div>
+  <div class="stat-card"><div class="stat-value"><%= stats.unreadMessages %></div><div class="stat-label">Unread Messages</div></div>
+</div>
+
+<div class="grid grid-2">
+  <div class="admin-card">
+    <h3>Recent Reviews</h3>
+    <% if (recentReviews.length === 0) { %>
+      <p style="color:var(--color-muted-foreground);">No reviews yet.</p>
+    <% } else { %>
+      <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:10px;">
+        <% recentReviews.forEach(function(r){ %>
+          <li><a href="/admin/reviews/<%= r.id %>/edit"><%= r.title %></a></li>
+        <% }) %>
+      </ul>
+    <% } %>
+    <a href="/admin/reviews/new" class="btn btn-primary btn-sm" style="margin-top:14px;">Add New Review</a>
+  </div>
+  <div class="admin-card">
+    <h3>Recent Messages</h3>
+    <% if (recentMessages.length === 0) { %>
+      <p style="color:var(--color-muted-foreground);">No messages yet.</p>
+    <% } else { %>
+      <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:10px;">
+        <% recentMessages.forEach(function(m){ %>
+          <li><strong><%= m.name %></strong> &mdash; <%= m.subject || 'No subject' %></li>
+        <% }) %>
+      </ul>
+    <% } %>
+    <a href="/admin/messages" class="btn btn-outline btn-sm" style="margin-top:14px;">View All Messages</a>
+  </div>
+</div>
+
+<%- include('../partials/admin-footer') %>
