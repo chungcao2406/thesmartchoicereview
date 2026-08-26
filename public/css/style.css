@@ -258,6 +258,14 @@ button { font-family: inherit; cursor: pointer; }
 .pc-block li { display: flex; align-items: flex-start; gap: 8px; font-size: 0.93rem; }
 .article-body { font-size: 1.02rem; }
 .article-body p { margin-bottom: 1.1em; }
+.video-embed { margin: 1.6em 0; }
+.video-embed video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-lg); border: 1px solid var(--color-border); background: #000; display: block; }
+.video-embed .video-caption { text-align: center; color: var(--color-muted-foreground); font-size: 0.85rem; margin: 10px 0 0; }
+.promo-callout { background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-hover) 100%); color: var(--color-on-accent); border-radius: var(--radius-lg); padding: 28px 30px; margin: 1.8em 0; text-align: center; }
+.promo-callout h3 { color: inherit; margin-bottom: 8px; }
+.promo-callout p { color: inherit; opacity: 0.95; max-width: 52ch; margin: 0 auto 18px; }
+.promo-callout .btn { background: #ffffff; color: var(--color-accent-hover); }
+.promo-callout .btn:hover { background: #f0fdf4; }
 .cta-panel { background: var(--color-primary); color: var(--color-on-primary); border-radius: var(--radius-lg); padding: 26px; display: flex; flex-direction: column; gap: 14px; position: sticky; top: 90px; }
 .cta-panel .price-now { color: #ffffff; font-size: 1.6rem; }
 .cta-panel .price-was { color: rgba(255,255,255,0.7); }
