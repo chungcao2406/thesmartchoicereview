@@ -17,7 +17,7 @@
         <% reviews.forEach(function(r){ %>
           <tr>
             <td><a href="/admin/reviews/<%= r.id %>/edit"><%= r.title %></a></td>
-            <td><%= r.category_name || '&mdash;' %></td>
+            <td><%= r.category_name || '—' %></td>
             <td><%= r.rating %></td>
             <td><span class="status-pill status-<%= r.status %>"><%= r.status %></span></td>
             <td><%= r.views %></td>

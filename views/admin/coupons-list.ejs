@@ -18,8 +18,8 @@
           <tr>
             <td><a href="/admin/coupons/<%= c.id %>/edit"><%= c.title %></a></td>
             <td><%= c.store_name %></td>
-            <td><%= c.code || '&mdash;' %></td>
-            <td><%= c.category_name || '&mdash;' %></td>
+            <td><%= c.code || '—' %></td>
+            <td><%= c.category_name || '—' %></td>
             <td><span class="status-pill status-<%= c.status %>"><%= c.status %></span></td>
             <td><%= c.uses %></td>
             <td class="table-actions">

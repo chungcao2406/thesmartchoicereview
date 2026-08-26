@@ -14,7 +14,7 @@
         <% messages.forEach(function(m){ %>
           <tr style="<%= m.is_read ? '' : 'font-weight:700;' %>">
             <td><%= m.name %><br /><span style="font-weight:400; color:var(--color-muted-foreground); font-size:0.82rem;"><%= m.email %></span></td>
-            <td><%= m.subject || '&mdash;' %></td>
+            <td><%= m.subject || '—' %></td>
             <td style="max-width:320px;"><%= m.message %></td>
             <td style="font-weight:400; font-size:0.82rem;"><%= m.created_at %></td>
             <td class="table-actions">
