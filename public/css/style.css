@@ -239,8 +239,10 @@ button { font-family: inherit; cursor: pointer; }
 .coupon-code { font-family: monospace; font-weight: 700; letter-spacing: 0.05em; background: var(--color-muted); border: 1px dashed var(--color-border); border-radius: var(--radius-sm); padding: 8px 14px; }
 
 /* ---------- Review detail ---------- */
-.review-hero { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 40px; align-items: start; padding: 40px 0; }
-@media (max-width: 900px) { .review-hero { grid-template-columns: 1fr; } }
+.review-single { max-width: 800px; margin: 0 auto; padding: 8px 0 40px; }
+.review-title { margin-bottom: 10px; }
+.review-title-meta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; color: var(--color-muted-foreground); font-size: 0.9rem; }
+.review-network { font-weight: 600; }
 .review-media img { border-radius: var(--radius-lg); border: 1px solid var(--color-border); }
 .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
 .gallery-grid img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--color-border); }
@@ -266,11 +268,19 @@ button { font-family: inherit; cursor: pointer; }
 .promo-callout p { color: inherit; opacity: 0.95; max-width: 52ch; margin: 0 auto 18px; }
 .promo-callout .btn { background: #ffffff; color: var(--color-accent-hover); }
 .promo-callout .btn:hover { background: #f0fdf4; }
-.cta-panel { background: var(--color-primary); color: var(--color-on-primary); border-radius: var(--radius-lg); padding: 26px; display: flex; flex-direction: column; gap: 14px; position: sticky; top: 90px; }
+.cta-panel { background: var(--color-primary); color: var(--color-on-primary); border-radius: var(--radius-lg); padding: 26px; display: flex; flex-direction: column; gap: 14px; }
 .cta-panel .price-now { color: #ffffff; font-size: 1.6rem; }
 .cta-panel .price-was { color: rgba(255,255,255,0.7); }
 .cta-panel .btn-accent { width: 100%; }
 .cta-panel .coupon-code { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.4); color: #fff; }
+.cta-panel-inline { flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-top: 24px; }
+.cta-panel-inline .cta-info { display: flex; flex-direction: column; gap: 10px; }
+.cta-panel-inline .btn-accent { width: auto; flex-shrink: 0; }
+.cta-disclaimer { font-size: 0.8rem; color: var(--color-muted-foreground); margin: 10px 0 0; }
+@media (max-width: 560px) {
+  .cta-panel-inline { flex-direction: column; align-items: stretch; }
+  .cta-panel-inline .btn-accent { width: 100%; }
+}
 
 /* ---------- Generic content pages ---------- */
 .prose h2 { margin-top: 1.6em; }
