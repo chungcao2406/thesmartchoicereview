@@ -8,10 +8,9 @@
         Independent &amp; unbiased
       </span>
       <h1>Buy smarter with reviews you can actually trust.</h1>
-      <p class="lead">We test, compare and review products across tech, home, fashion and more &mdash; then track down the best verified coupon codes so you never overpay.</p>
+      <p class="lead">We test, compare and review products across tech, home, fashion and more &mdash; so you know exactly what you're buying before you click through.</p>
       <div class="hero-cta">
         <a href="/reviews" class="btn btn-primary">Browse Reviews</a>
-        <a href="/coupons" class="btn btn-outline">See Today's Coupons</a>
       </div>
       <div class="trust-row">
         <span class="trust-item">
@@ -20,7 +19,7 @@
         </span>
         <span class="trust-item">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/></svg>
-          Verified coupon codes
+          Pricing checked regularly
         </span>
         <span class="trust-item">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -63,25 +62,6 @@
   </div>
 </section>
 
-<% if (featuredCoupons.length) { %>
-<section class="section" style="padding-top:0;">
-  <div class="container">
-    <div class="section-head">
-      <div>
-        <h2>Today's Best Coupons</h2>
-        <p class="section-sub">Verified codes, checked regularly.</p>
-      </div>
-      <a href="/coupons" class="btn btn-outline btn-sm">View all coupons</a>
-    </div>
-    <div class="grid grid-2">
-      <% featuredCoupons.forEach(function(coupon){ %>
-        <%- include('partials/coupon-card', { coupon: coupon }) %>
-      <% }) %>
-    </div>
-  </div>
-</section>
-<% } %>
-
 <section class="section" style="padding-top:0;">
   <div class="container">
     <div class="section-head">
@@ -115,8 +95,8 @@
         <p class="card-summary">Some links earn us a small commission, clearly disclosed on every page. It never influences which products we recommend.</p>
       </div></div>
       <div class="card"><div class="card-body">
-        <h3>Coupons we actually check</h3>
-        <p class="card-summary">We periodically re-verify coupon codes so you're less likely to land on a dead promo at checkout.</p>
+        <h3>Prices we keep current</h3>
+        <p class="card-summary">We periodically re-check pricing and availability so you're less likely to land on stale info at checkout.</p>
       </div></div>
     </div>
   </div>

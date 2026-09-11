@@ -45,22 +45,12 @@ router.get('/', (req, res) => {
     .all()
     .map(withParsedFields);
 
-  const featuredCoupons = db
-    .prepare(
-      `SELECT co.*, c.name AS category_name, c.slug AS category_slug
-       FROM coupons co LEFT JOIN categories c ON c.id = co.category_id
-       WHERE co.status = 'published'
-       ORDER BY co.featured DESC, co.created_at DESC LIMIT 4`
-    )
-    .all();
-
   const categories = db.prepare('SELECT * FROM categories ORDER BY sort_order ASC, name ASC').all();
 
   res.render('index', {
-    title: 'Honest Product Reviews & Verified Coupons',
+    title: 'Honest, Independent Product Reviews',
     featuredReviews,
     latestReviews,
-    featuredCoupons,
     categories,
   });
 });
@@ -138,46 +128,7 @@ router.get('/reviews/:slug', (req, res) => {
   });
 });
 
-// Coupons listing
-router.get('/coupons', (req, res) => {
-  const categorySlug = req.query.category || null;
-  let category = null;
-  let where = "co.status = 'published' AND (co.expires_at IS NULL OR co.expires_at >= date('now'))";
-  const params = {};
-
-  if (categorySlug) {
-    category = db.prepare('SELECT * FROM categories WHERE slug = ?').get(categorySlug);
-    if (category) {
-      where += ' AND co.category_id = @categoryId';
-      params.categoryId = category.id;
-    }
-  }
-
-  const coupons = db
-    .prepare(
-      `SELECT co.*, c.name AS category_name, c.slug AS category_slug
-       FROM coupons co LEFT JOIN categories c ON c.id = co.category_id
-       WHERE ${where}
-       ORDER BY co.featured DESC, co.created_at DESC`
-    )
-    .all(params);
-
-  const categories = db.prepare('SELECT * FROM categories ORDER BY sort_order ASC, name ASC').all();
-
-  res.render('coupons-list', {
-    title: category ? `${category.name} Coupons & Deals` : 'All Coupons & Deals',
-    coupons,
-    categories,
-    activeCategory: category,
-  });
-});
-
-router.post('/coupons/:id/track', (req, res) => {
-  db.prepare('UPDATE coupons SET uses = uses + 1 WHERE id = ?').run(req.params.id);
-  res.json({ ok: true });
-});
-
-// Category page (reviews + coupons combined)
+// Category page
 router.get('/category/:slug', (req, res) => {
   const category = db.prepare('SELECT * FROM categories WHERE slug = ?').get(req.params.slug);
   if (!category) return res.status(404).render('404', { title: 'Category Not Found' });
@@ -192,20 +143,10 @@ router.get('/category/:slug', (req, res) => {
     .all(category.id)
     .map(withParsedFields);
 
-  const coupons = db
-    .prepare(
-      `SELECT co.*, c.name AS category_name, c.slug AS category_slug
-       FROM coupons co LEFT JOIN categories c ON c.id = co.category_id
-       WHERE co.status = 'published' AND co.category_id = ?
-       ORDER BY co.featured DESC, co.created_at DESC LIMIT 6`
-    )
-    .all(category.id);
-
   res.render('category', {
     title: category.name,
     category,
     reviews,
-    coupons,
   });
 });
 
@@ -270,7 +211,7 @@ router.get('/sitemap.xml', (req, res) => {
   const reviews = db.prepare("SELECT slug, updated_at FROM reviews WHERE status = 'published'").all();
   const categories = db.prepare('SELECT slug FROM categories').all();
 
-  const staticPaths = ['/', '/reviews', '/coupons', '/about', '/contact', '/affiliate-disclosure', '/privacy-policy', '/terms'];
+  const staticPaths = ['/', '/reviews', '/about', '/contact', '/affiliate-disclosure', '/privacy-policy', '/terms'];
 
   let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
   staticPaths.forEach((p) => {

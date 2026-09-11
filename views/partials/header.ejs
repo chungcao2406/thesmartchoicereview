@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title><%= typeof title !== 'undefined' && title ? title + ' | ' + siteName : siteName %></title>
-  <meta name="description" content="<%= typeof metaDescription !== 'undefined' && metaDescription ? metaDescription : 'Honest, independent product reviews and verified coupons across tech, home, fashion, software and more.' %>" />
+  <meta name="description" content="<%= typeof metaDescription !== 'undefined' && metaDescription ? metaDescription : 'Honest, independent product reviews across tech, home, fashion, software and more.' %>" />
   <meta property="og:title" content="<%= typeof title !== 'undefined' && title ? title : siteName %>" />
   <meta property="og:type" content="website" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%231e3a8a%22/><text x=%2250%22 y=%2266%22 font-size=%2255%22 font-family=%22sans-serif%22 font-weight=%22800%22 fill=%22white%22 text-anchor=%22middle%22>S</text></svg>" />
@@ -27,7 +27,6 @@
       <nav class="main-nav" id="main-nav" aria-label="Main navigation">
         <a href="/" aria-current="<%= currentPath === '/' ? 'page' : 'false' %>">Home</a>
         <a href="/reviews" aria-current="<%= currentPath.startsWith('/reviews') ? 'page' : 'false' %>">Reviews</a>
-        <a href="/coupons" aria-current="<%= currentPath.startsWith('/coupons') ? 'page' : 'false' %>">Coupons</a>
         <a href="/about" aria-current="<%= currentPath === '/about' ? 'page' : 'false' %>">About</a>
         <a href="/contact" aria-current="<%= currentPath === '/contact' ? 'page' : 'false' %>">Contact</a>
         <form class="search-form" action="/search" method="get" role="search">

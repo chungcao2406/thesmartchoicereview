@@ -21,18 +21,4 @@
   <% } %>
 </div>
 
-<% if (coupons.length) { %>
-<div class="container section" style="padding-top:0;">
-  <div class="section-head">
-    <h2>Coupons &amp; Deals</h2>
-    <a href="/coupons?category=<%= category.slug %>" class="btn btn-outline btn-sm">View all</a>
-  </div>
-  <div class="grid grid-2">
-    <% coupons.forEach(function(coupon){ %>
-      <%- include('partials/coupon-card', { coupon: coupon }) %>
-    <% }) %>
-  </div>
-</div>
-<% } %>
-
 <%- include('partials/footer') %>

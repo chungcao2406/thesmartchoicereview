@@ -28,15 +28,5 @@
           });
       }
     }
-
-    var trackLink = e.target.closest('[data-track-coupon]');
-    if (trackLink) {
-      var id = trackLink.getAttribute('data-track-coupon');
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon('/coupons/' + id + '/track');
-      } else {
-        fetch('/coupons/' + id + '/track', { method: 'POST', keepalive: true }).catch(function () {});
-      }
-    }
   });
 })();
