@@ -31,10 +31,17 @@
   <div class="review-single">
     <h1 class="review-title"><%= review.title %></h1>
     <div class="review-title-meta">
-      <span class="rating-label">Our Rating:</span>
-      <%- include('partials/stars', { rating: review.rating }) %>
+      <% if (review.rating > 0) { %>
+        <span class="rating-label">Our Rating:</span>
+        <%- include('partials/stars', { rating: review.rating }) %>
+      <% } %>
       <% if (review.affiliate_network) { %><span class="review-network">via <%= review.affiliate_network %></span><% } %>
     </div>
+    <% if (review.affiliate_url) { %>
+      <p class="review-disclosure" style="margin:12px 0 0; padding:10px 14px; border-left:4px solid var(--color-accent, #b5651d); background:rgba(0,0,0,0.04); font-size:0.95rem;">
+        <strong>Disclosure:</strong> we earn a commission if you buy through links in this review, at no extra cost to you. <a href="/affiliate-disclosure">Learn more</a>.
+      </p>
+    <% } %>
 
     <div class="review-media">
       <img src="<%= review.image_url || '/images/placeholder-product.svg' %>" alt="<%= review.title %>" width="600" height="450" />
@@ -48,6 +55,7 @@
       </div>
     <% } %>
 
+    <% if (review.affiliate_url) { %>
     <div class="cta-panel cta-panel-inline">
       <div class="cta-info">
         <% if (review.price) { %>
@@ -70,12 +78,14 @@
       </a>
     </div>
     <p class="cta-disclaimer">Price and availability are accurate as of the date of publishing and may change.</p>
+    <% } %>
 
     <div class="verdict-box">
       <h2 style="margin-bottom:6px;">Our Verdict</h2>
       <p style="color:var(--color-muted-foreground);"><%= review.summary %></p>
     </div>
 
+    <% if (review.pros.length || review.cons.length) { %>
     <div class="pros-cons">
       <div class="pc-block pros">
         <h4>
@@ -96,6 +106,7 @@
         </ul>
       </div>
     </div>
+    <% } %>
 
     <div class="article-body prose">
       <%- review.content %>

@@ -8,7 +8,7 @@
     <h3 class="card-title"><a href="/reviews/<%= review.slug %>"><%= review.title %></a></h3>
     <p class="card-summary"><%= review.summary %></p>
     <div class="card-footer">
-      <%- include('stars', { rating: review.rating }) %>
+      <% if (review.rating > 0) { %><%- include('stars', { rating: review.rating }) %><% } %>
       <% if (review.price) { %>
         <span class="price-row">
           <span class="price-now"><%= review.price %></span>
